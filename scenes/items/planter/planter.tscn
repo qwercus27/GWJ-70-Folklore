@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://mrif81r65leu"]
+
+[ext_resource type="Texture2D" uid="uid://cw3t1hhg1x4vp" path="res://scenes/items/planter/planter.png" id="1_s5msq"]
+[ext_resource type="Texture2D" uid="uid://dhog6gu1ut7pn" path="res://scenes/items/planter/sapling.png" id="2_xhtxa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7i5o1"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h13e8"]
+size = Vector2(16, 9)
+
+[node name="planter" type="StaticBody2D"]
+texture_filter = 1
+
+[node name="PlanterSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_s5msq")
+
+[node name="SaplingSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(2, -7)
+texture = ExtResource("2_xhtxa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.19209e-07)
+shape = SubResource("RectangleShape2D_7i5o1")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="Area2D" type="Area2D" parent="." groups=["planter"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_h13e8")
+debug_color = Color(0.737255, 0.223529, 1, 0)

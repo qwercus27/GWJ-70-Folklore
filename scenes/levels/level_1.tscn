@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://8nau3ij0pmia"]
+
+[ext_resource type="PackedScene" uid="uid://87ks78rsj6hm" path="res://scenes/levels/level.tscn" id="1_wheic"]
+[ext_resource type="FontFile" uid="uid://b5yivw2ab1gcm" path="res://fonts/fs-a-pixel-away.otf" id="2_66tp0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5qgrh"]
+font = ExtResource("2_66tp0")
+font_size = 22
+
+[node name="level_1" instance=ExtResource("1_wheic")]
+
+[node name="TextureRect" parent="ColorRect" index="0"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 115.0
+offset_bottom = 388.0
+
+[node name="TileMap" parent="." index="1"]
+layer_0/tile_data = PackedInt32Array(1769472, 1, 2, 1769473, 65537, 2, 1769474, 65537, 2, 1769475, 65537, 2, 1769476, 65537, 2, 1769477, 65537, 2, 1769478, 65537, 2, 1769479, 65537, 2, 1769480, 65537, 2, 1769481, 65537, 2, 1769482, 65537, 2, 1769483, 65537, 2, 1769484, 65537, 2, 1769485, 65537, 2, 1769486, 65537, 2, 1769487, 65537, 2, 1769488, 65537, 2, 1769489, 65537, 2, 1769490, 65537, 2, 1769491, 65537, 2, 1769492, 65537, 2, 1769493, 65537, 2, 1769494, 65537, 2, 1769502, 65537, 2, 1769503, 65537, 2, 1769504, 65537, 2, 1769505, 65537, 2, 1769506, 65537, 2, 1769507, 65537, 2, 1769508, 65537, 2, 1769509, 65537, 2, 1769510, 65537, 2, 1769511, 65537, 2, 1769512, 131073, 2, 1703936, 262145, 1, 1703937, 65537, 0, 1703938, 65537, 0, 1703939, 65537, 0, 1703940, 65537, 0, 1703941, 65537, 0, 1703942, 65537, 0, 1703943, 65537, 0, 1703944, 65537, 0, 1703945, 65537, 0, 1703946, 65537, 0, 1703947, 65537, 0, 1703948, 65537, 0, 1703949, 65537, 0, 1703950, 65537, 0, 1703951, 65537, 0, 1703952, 65537, 0, 1703953, 65537, 0, 1703954, 65537, 0, 1703955, 65537, 0, 1703956, 65537, 0, 1703957, 65537, 0, 1703958, 65537, 0, 1769495, 65537, 2, 1769496, 65537, 2, 1769497, 65537, 2, 1769498, 65537, 2, 1769499, 65537, 2, 1769500, 65537, 2, 1769501, 65537, 2, 1703959, 65537, 0, 1703960, 65537, 0, 1703961, 65537, 0, 1703962, 65537, 0, 1703963, 65537, 0, 1703964, 65537, 0, 1703965, 65537, 0, 1703966, 65537, 0, 1703967, 65537, 0, 1703968, 65537, 0, 1703969, 65537, 0, 1703970, 65537, 0, 1703971, 65537, 0, 1703972, 65537, 0, 1703973, 65537, 0, 1703974, 65537, 0, 1703975, 65537, 0, 1703976, 458753, 1, 1638440, 196609, 1, 1572904, 196609, 1, 1507368, 196609, 0, 1638400, 196609, 1, 1572864, 196609, 1, 1507328, 196609, 0)
+layer_1/tile_data = PackedInt32Array(1703965, 2, 65536)
+
+[node name="StartPos" parent="." index="2"]
+position = Vector2(40.833, 95)
+
+[node name="MoveNote" type="Label" parent="." index="3"]
+texture_filter = 1
+offset_left = 25.1667
+offset_top = 63.5
+offset_right = 398.167
+offset_bottom = 89.5
+scale = Vector2(0.18, 0.18)
+text = "Use arrow keys to move"
+label_settings = SubResource("LabelSettings_5qgrh")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." index="4"]
+position = Vector2(298.5, 79.5)
+scale = Vector2(2.16667, 2.14167)
+
+[node name="PlantNote" type="Label" parent="." index="5"]
+visible = false
+texture_filter = 1
+offset_left = 203.333
+offset_top = 64.8333
+offset_right = 580.333
+offset_bottom = 90.8333
+scale = Vector2(0.18, 0.18)
+text = "Press A to plant a tree!"
+label_settings = SubResource("LabelSettings_5qgrh")
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]

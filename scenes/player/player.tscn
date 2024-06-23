@@ -1,0 +1,153 @@
+[gd_scene load_steps=22 format=3 uid="uid://dpy6saobjcw7e"]
+
+[ext_resource type="Texture2D" uid="uid://bp68mk1fk0xyt" path="res://scenes/player/player_sprite.png" id="1_bxjr1"]
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_ql703"]
+[ext_resource type="Script" path="res://components/states/state_machine.gd" id="3_4t0uj"]
+[ext_resource type="Script" path="res://components/states/state_idle.gd" id="4_l7mvx"]
+[ext_resource type="Script" path="res://components/states/state_run.gd" id="5_01pc0"]
+[ext_resource type="Script" path="res://components/states/state_air.gd" id="6_icfoh"]
+[ext_resource type="Script" path="res://components/states/state_crouch.gd" id="7_5udaa"]
+[ext_resource type="Script" path="res://components/health_component.gd" id="7_870vv"]
+[ext_resource type="AudioStream" uid="uid://dk1nwpwhcfhf" path="res://audio/jump.mp3" id="9_h0n5d"]
+[ext_resource type="AudioStream" uid="uid://dr3j3qvfnjw6g" path="res://audio/plant.mp3" id="10_8mqre"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4k75n"]
+atlas = ExtResource("1_bxjr1")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dl4uj"]
+atlas = ExtResource("1_bxjr1")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8184"]
+atlas = ExtResource("1_bxjr1")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60x0k"]
+atlas = ExtResource("1_bxjr1")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sw0yh"]
+atlas = ExtResource("1_bxjr1")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1w6om"]
+atlas = ExtResource("1_bxjr1")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6va5u"]
+atlas = ExtResource("1_bxjr1")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fqori"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4k75n")
+}],
+"loop": true,
+"name": &"crouch",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dl4uj")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8184")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60x0k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sw0yh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1w6om")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6va5u")
+}],
+"loop": true,
+"name": &"running",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iuxqq"]
+size = Vector2(4, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k7msq"]
+size = Vector2(6, 15)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2h0vf"]
+
+[node name="Player" type="CharacterBody2D"]
+texture_filter = 1
+scale = Vector2(6, 6)
+script = ExtResource("1_ql703")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fqori")
+animation = &"crouch"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_iuxqq")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_4t0uj")
+initial_state = NodePath("Air")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_l7mvx")
+
+[node name="Run" type="Node" parent="StateMachine"]
+script = ExtResource("5_01pc0")
+
+[node name="Air" type="Node" parent="StateMachine"]
+script = ExtResource("6_icfoh")
+
+[node name="Crouch" type="Node" parent="StateMachine"]
+script = ExtResource("7_5udaa")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("7_870vv")
+
+[node name="Interact" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interact"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_k7msq")
+debug_color = Color(0.670588, 0.352941, 0.921569, 0)
+
+[node name="PlantActionLabel" type="Label" parent="."]
+visible = false
+texture_filter = 1
+offset_left = 5.16667
+offset_top = -4.0
+offset_right = 45.1667
+offset_bottom = 22.0
+scale = Vector2(0.165, 0.165)
+text = "[A]"
+label_settings = SubResource("LabelSettings_2h0vf")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="JumpAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_h0n5d")
+
+[node name="PlantAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_8mqre")
+
+[connection signal="area_entered" from="Interact" to="." method="_on_interact_area_entered"]
+[connection signal="area_exited" from="Interact" to="." method="_on_interact_area_exited"]

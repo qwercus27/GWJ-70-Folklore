@@ -1,0 +1,69 @@
+[gd_scene load_steps=5 format=3 uid="uid://5k16wh7yw23x"]
+
+[ext_resource type="FontFile" uid="uid://b5yivw2ab1gcm" path="res://fonts/fs-a-pixel-away.otf" id="1_gokr4"]
+[ext_resource type="Script" path="res://scenes/HUD.gd" id="1_o3hrv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8r5sm"]
+font = ExtResource("1_gokr4")
+font_size = 22
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_x1a38"]
+font = ExtResource("1_gokr4")
+font_size = 22
+
+[node name="HUD" type="CanvasLayer"]
+scale = Vector2(6, 6)
+transform = Transform2D(6, 0, 0, 6, 0, 0)
+script = ExtResource("1_o3hrv")
+
+[node name="ClearedLabel" type="Label" parent="."]
+visible = false
+texture_filter = 1
+anchors_preset = -1
+anchor_right = 0.165
+anchor_bottom = 0.166
+offset_left = 45.5
+offset_top = 28.6667
+offset_right = 10.42
+offset_bottom = -51.9013
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.66, 0.66)
+size_flags_horizontal = 4
+text = "Complete!"
+label_settings = SubResource("LabelSettings_8r5sm")
+
+[node name="LevelLabel" type="Label" parent="."]
+texture_filter = 1
+anchors_preset = -1
+anchor_right = 0.165
+anchor_bottom = 0.166
+offset_left = 63.8333
+offset_top = 6.0
+offset_right = 12.7533
+offset_bottom = -74.568
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+size_flags_horizontal = 4
+text = "Level 1"
+label_settings = SubResource("LabelSettings_8r5sm")
+horizontal_alignment = 1
+
+[node name="LevelLabelTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="PlantNumber" type="Label" parent="."]
+texture_filter = 1
+offset_left = 7.83333
+offset_top = 2.83333
+offset_right = 85.8333
+offset_bottom = 28.8333
+scale = Vector2(0.33, 0.33)
+text = "0 / 3"
+label_settings = SubResource("LabelSettings_x1a38")
+
+[connection signal="timeout" from="LevelLabelTimer" to="." method="_on_level_label_timer_timeout"]

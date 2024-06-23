@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://ch0fbadok54g0"]
+
+[ext_resource type="PackedScene" uid="uid://dpy6saobjcw7e" path="res://scenes/player/player.tscn" id="1_bfgbk"]
+[ext_resource type="Script" path="res://scenes/main/main.gd" id="1_krtus"]
+[ext_resource type="PackedScene" uid="uid://87ks78rsj6hm" path="res://scenes/levels/level.tscn" id="2_7f1js"]
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_krtus")
+
+[node name="level" parent="." instance=ExtResource("2_7f1js")]
+
+[node name="Player" parent="." instance=ExtResource("1_bfgbk")]
+position = Vector2(592, 548)
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(575, 333)
